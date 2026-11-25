@@ -9,13 +9,35 @@ import "./globals.css";
 const title = "Allkateia | Proteção veicular e benefícios";
 const description = "Conheça a proteção veicular associativa da Allkateia, consulte os benefícios e peça sua cotação pelo WhatsApp.";
 
-const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL || "allkateia-site.vercel.app";
+const siteUrl = new URL(`https://${productionHost}`);
+const socialImage = {
+  url: "/allkateia-social.jpg",
+  width: 1200,
+  height: 630,
+  type: "image/jpeg",
+  alt: "Allkateia. Proteção veicular, assistência e benefícios. Um SUV azul percorre uma estrada.",
+};
 
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: new URL(vercelHost ? "https://" + vercelHost : "https://www.allkateia.com.br"),
-  openGraph: { title, description, locale: "pt_BR", type: "website", siteName: "Allkateia", images: ["/road.webp"] },
+  metadataBase: siteUrl,
+  openGraph: {
+    url: siteUrl,
+    title,
+    description,
+    locale: "pt_BR",
+    type: "website",
+    siteName: "Allkateia",
+    images: [socialImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [socialImage],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
